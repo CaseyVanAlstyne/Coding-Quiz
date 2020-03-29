@@ -1,3 +1,4 @@
+var timeEl = document.querySelector(".time");
 var mainEl = document.getElementById("main");
 var start = document.getElementById("start");
 var quiz = document.getElementById("quiz");
@@ -6,6 +7,7 @@ var choiceA = document.getElementById("A")
 var choiceB = document.getElementById("B")
 var choiceC = document.getElementById("C")
 var choiceD = document.getElementById("D")
+var secondsLeft = 60;
 
 var questions = [
   {
@@ -46,8 +48,19 @@ function showQuestion(){
   choiceD.innerHTML = q.choiceD;
   console.log("The question is shown");
 }
-function setTimer() {
 
+function setTime() {
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds left until YOU LOSE!";
+
+    if(secondsLeft === 0) {
+      clearInterval(timerInterval);
+      sendMessage();
+    }
+
+  }, 1000);
 }
  
+setTime();
 showQuestion();
