@@ -41,12 +41,16 @@ var questionBank = 0;
 
 function showQuestion(){
   var q = questions[questionBank];
-  question.innerHTML = "<p>" + q.question + "</p>";
+  question.innerHTML = "<p>" + q.questionStem + "</p>";
   choiceA.innerHTML = q.choiceA;
   choiceB.innerHTML = q.choiceB;
   choiceC.innerHTML = q.choiceC;
   choiceD.innerHTML = q.choiceD;
   console.log("The question is shown");
+}
+
+function cycleQuestions(){
+  questionBank++;
 }
 
 function setTime() {
@@ -62,5 +66,8 @@ function setTime() {
   }, 1000);
 }
  
+// create addEventListener for onclick to work with the cycleQuestions,, when user selects an answer choice
+
 setTime();
 showQuestion();
+cycleQuestions();
