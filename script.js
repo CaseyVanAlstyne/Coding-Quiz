@@ -18,6 +18,14 @@ var questions = [
       correct: "B"
   },
   {
+    questionStem: "What does CSS stand for?",
+    choiceA: "Cascading Style Sheet",
+    choiceB: "Cool Super Saiyan",
+    choiceC: "Casey's Super SMART",
+    choiceD: "Code Style Sheet",
+    correct: "A"
+},
+  {
       questionStem: "What does JS stand for?",
       choiceA: "Javasuper",
       choiceB: "Javasingle",
