@@ -1,11 +1,11 @@
 var mainEl = document.getElementById("main");
-const start = document.getElementById("start");
-const quiz = document.getElementById("quiz");
+var start = document.getElementById("start");
+var quiz = document.getElementById("quiz");
 var question = document.getElementById("question")
-const choiceA = document.getElementById("A")
-const choiceB = document.getElementById("B")
-const choiceC = document.getElementById("C")
-const choiceD = document.getElementById("D")
+var choiceA = document.getElementById("A")
+var choiceB = document.getElementById("B")
+var choiceC = document.getElementById("C")
+var choiceD = document.getElementById("D")
 // stick with var here instead of const
 // populate the HTML with the above IDs
 var questions = [
