@@ -34,6 +34,22 @@ var questions = [
     choiceD: "Javascript",
     correct: "D"
   },
+  {
+    questionStem: "What is Olivia's favorite kind of animal?",
+    choiceA: "bug",
+    choiceB: "rat",
+    choiceC: "horse",
+    choiceD: "wolf",
+    correct: "D"
+  },
+  {
+    questionStem: "What does JS stand for?",
+    choiceA: "Javasuper",
+    choiceB: "Javasingle",
+    choiceC: "Jabroni's suck",
+    choiceD: "Javascript",
+    correct: "D"
+  },
 ];
 
 var lastQuestionIndex = questions.length - 1;
@@ -51,6 +67,11 @@ function showQuestion(){
 
 function cycleQuestions(){
   questionBank++;
+  showQuestion();
+}
+
+function answerChoices(){
+  
 }
 
 function setTime() {
@@ -65,9 +86,33 @@ function setTime() {
 
   }, 1000);
 }
+
+// create function that deals with the event listener, passing answerId as a parameter of a function
  
 // create addEventListener for onclick to work with the cycleQuestions,, when user selects an answer choice
+choiceA.addEventListener("click", function(event){
+var answerId = event.target.id;
+console.log(answerId);
+cycleQuestions();
+})
+
+choiceB.addEventListener("click", function(event){
+var answerId = event.target.id;
+console.log(answerId);
+cycleQuestions();
+})
+
+choiceC.addEventListener("click", function(event){
+var answerId = event.target.id;
+console.log(answerId);
+cycleQuestions();
+})
+
+choiceD.addEventListener("click", function(event){
+var answerId = event.target.id;
+console.log(answerId);
+cycleQuestions();
+})
 
 setTime();
 showQuestion();
-cycleQuestions();
