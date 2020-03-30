@@ -2,52 +2,53 @@ var timeEl = document.querySelector(".time");
 var mainEl = document.getElementById("main");
 var start = document.getElementById("start");
 var quiz = document.getElementById("quiz");
-var question = document.getElementById("question")
-var choiceA = document.getElementById("A")
-var choiceB = document.getElementById("B")
-var choiceC = document.getElementById("C")
-var choiceD = document.getElementById("D")
-var secondsLeft = 60;
+var question = document.getElementById("question");
+var choiceA = document.getElementById("A");
+var choiceB = document.getElementById("B");
+var choiceC = document.getElementById("C");
+var choiceD = document.getElementById("D");
+var secondsLeft = 75;
+var startQuiz = document.getElementById("startQuizButton");
 
 var questions = [
   {
     questionStem: "What does HTML stand for?",
-    choiceA: "Hot Text Markup Language",
-    choiceB: "Hyper Text Markup Language",
-    choiceC: "High Text Markup Language",
-    choiceD: "Hidden Text Markup Language",
+    choiceA: "A. Hot Text Markup Language",
+    choiceB: "B. Hyper Text Markup Language",
+    choiceC: "C. High Text Markup Language",
+    choiceD: "D. Hidden Text Markup Language",
     correct: "B"
   },
   {
     questionStem: "What does CSS stand for?",
-    choiceA: "Cascading Style Sheet",
-    choiceB: "Cool Super Saiyan",
-    choiceC: "Casey's Super SMART",
-    choiceD: "Code Style Sheet",
+    choiceA: "A. Cascading Style Sheet",
+    choiceB: "B. Cool Super Saiyan",
+    choiceC: "C. Casey's Super SMART",
+    choiceD: "D. Code Style Sheet",
     correct: "A"
 },
   {
     questionStem: "What does JS stand for?",
-    choiceA: "Javasuper",
-    choiceB: "Javasingle",
-    choiceC: "Jabroni's suck",
-    choiceD: "Javascript",
+    choiceA: "A. Javasuper",
+    choiceB: "B. Javasingle",
+    choiceC: "C. Jabroni's suck",
+    choiceD: "D. Javascript",
     correct: "D"
   },
   {
     questionStem: "What is Olivia's favorite kind of animal?",
-    choiceA: "bug",
-    choiceB: "rat",
-    choiceC: "horse",
-    choiceD: "wolf",
+    choiceA: "A. bug",
+    choiceB: "B. rat",
+    choiceC: "C. horse",
+    choiceD: "D. wolf",
     correct: "D"
   },
   {
     questionStem: "What does JS stand for?",
-    choiceA: "Javasuper",
-    choiceB: "Javasingle",
-    choiceC: "Jabroni's suck",
-    choiceD: "Javascript",
+    choiceA: "A. Javasuper",
+    choiceB: "B. Javasingle",
+    choiceC: "C. Jabroni's suck",
+    choiceD: "D. Javascript",
     correct: "D"
   },
 ];
@@ -70,11 +71,28 @@ function cycleQuestions(){
   showQuestion();
 }
 
-function answerChoices(){
-  if () {
-    // need some work here. If the user selects questionStem.correct || var answerId, then it moves onto the next question. Else, it deducts time from the clock and moves onto the next question. 
+function userStartQuiz(){
+  console.log("the quiz has started, Mfer.");
+  // setTime();
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
   }
 }
+
+// var scores = JSON.parse(window.localStorage.getItem('scores'));
+//   if (scores === null) {
+//     scores = [];
+//   } 
+//   scores.push(currentPlayerScore);
+//   localStorage.setItem("scores", JSON.stringify(scores));
+//   viewHighScores(event);
+// }
+   
+// need some work here. If the user selects questionStem.correct || var answerId, then it moves onto the next question. Else, it deducts time from the clock and moves onto the next question. 
+ 
 
 function setTime() {
   var timerInterval = setInterval(function() {
@@ -92,6 +110,8 @@ function setTime() {
 // create function that deals with the event listener, passing answerId as a parameter of a function
  
 // create addEventListener for onclick to work with the cycleQuestions,, when user selects an answer choice
+startQuiz.addEventListener("click", userStartQuiz);
+
 choiceA.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
