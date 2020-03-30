@@ -71,7 +71,9 @@ function cycleQuestions(){
 }
 
 function answerChoices(){
-  
+  if () {
+    // need some work here. If the user selects questionStem.correct || var answerId, then it moves onto the next question. Else, it deducts time from the clock and moves onto the next question. 
+  }
 }
 
 function setTime() {
