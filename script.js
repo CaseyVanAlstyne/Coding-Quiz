@@ -9,6 +9,7 @@ var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var secondsLeft = 75;
 var startQuiz = document.getElementById("startQuizButton");
+var quizScore = 0;
 
 var questions = [
   {
@@ -43,14 +44,6 @@ var questions = [
     choiceD: "D. wolf",
     correct: "D"
   },
-  {
-    questionStem: "What does JS stand for?",
-    choiceA: "A. Javasuper",
-    choiceB: "B. Javasingle",
-    choiceC: "C. Jabroni's suck",
-    choiceD: "D. Javascript",
-    correct: "D"
-  },
 ];
 
 var lastQuestionIndex = questions.length - 1;
@@ -68,7 +61,11 @@ function showQuestion(){
 
 function cycleQuestions(){
   questionBank++;
+  if(questionBank > lastQuestionIndex){
+    alert("You've answered all of the questions, you smartie!");
+  } else {
   showQuestion();
+  }
 }
 
 function userStartQuiz(){
@@ -80,9 +77,10 @@ function userStartQuiz(){
   } else {
     x.style.display = "none";
   }
+  showQuestion();
 }
 
-// var scores = JSON.parse(window.localStorage.getItem('scores'));
+// var scores = JSON.parse(window.localStorage.setItem('scores'));
 //   if (scores === null) {
 //     scores = [];
 //   } 
@@ -90,9 +88,6 @@ function userStartQuiz(){
 //   localStorage.setItem("scores", JSON.stringify(scores));
 //   viewHighScores(event);
 // }
-   
-// need some work here. If the user selects questionStem.correct || var answerId, then it moves onto the next question. Else, it deducts time from the clock and moves onto the next question. 
- 
 
 function setTime() {
   // Should I put an if statement in here so when the user clicks on the button it runs the timer?
@@ -100,15 +95,14 @@ function setTime() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left until YOU LOSE!";
 
-    if(secondsLeft === 0) {
+    if(secondsLeft <= 0) {
       clearInterval(timerInterval);
-      sendMessage();
     }
-
   }, 1000);
 }
 
-// create function that deals with the event listener, passing answerId as a parameter of a function
+function highScore() {
+}
  
 // create addEventListener for onclick to work with the cycleQuestions,, when user selects an answer choice
 startQuiz.addEventListener("click", userStartQuiz);
@@ -119,7 +113,7 @@ console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
     secondsLeft = secondsLeft - 30;
-  }
+  } 
 cycleQuestions();
 })
 
@@ -152,6 +146,3 @@ console.log(answerId);
   }
 cycleQuestions();
 })
-
-// setTime();
-showQuestion();
