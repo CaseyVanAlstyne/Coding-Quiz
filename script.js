@@ -117,7 +117,7 @@ choiceA.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
   if(answerId !== questions[questionBank].correct){
-    console.log("False, bitch.")
+    console.log("False, Dummy!")
     secondsLeft = secondsLeft - 30;
   }
 cycleQuestions();
@@ -127,7 +127,7 @@ choiceB.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
   if(answerId !== questions[questionBank].correct){
-    console.log("False, bitch.")
+    console.log("False, Dummy!")
     secondsLeft = secondsLeft - 30;
   }
 cycleQuestions();
@@ -137,7 +137,7 @@ choiceC.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
   if(answerId !== questions[questionBank].correct){
-    console.log("False, bitch.")
+    console.log("False, Dummy!")
     secondsLeft = secondsLeft - 30;
   }
 cycleQuestions();
@@ -147,7 +147,7 @@ choiceD.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
   if(answerId !== questions[questionBank].correct){
-    console.log("False, bitch.")
+    console.log("False, Dummy!")
     secondsLeft = secondsLeft - 30;
   }
 cycleQuestions();
