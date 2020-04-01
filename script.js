@@ -112,7 +112,7 @@ var answerId = event.target.id;
 console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
-    secondsLeft = secondsLeft - 30;
+    secondsLeft = secondsLeft - 15;
   } 
 cycleQuestions();
 })
@@ -122,7 +122,7 @@ var answerId = event.target.id;
 console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
-    secondsLeft = secondsLeft - 30;
+    secondsLeft = secondsLeft - 15;
   }
 cycleQuestions();
 })
@@ -132,7 +132,7 @@ var answerId = event.target.id;
 console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
-    secondsLeft = secondsLeft - 30;
+    secondsLeft = secondsLeft - 15;
   }
 cycleQuestions();
 })
@@ -142,7 +142,7 @@ var answerId = event.target.id;
 console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
-    secondsLeft = secondsLeft - 30;
+    secondsLeft = secondsLeft - 15;
   }
 cycleQuestions();
 })
