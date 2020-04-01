@@ -73,8 +73,8 @@ function cycleQuestions(){
 
 function userStartQuiz(){
   console.log("the quiz has started, Mfer.");
-  // setTime();
-  var x = document.getElementById("myDIV");
+  setTime();
+  var x = document.getElementById("startQuizButton");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
@@ -95,6 +95,7 @@ function userStartQuiz(){
  
 
 function setTime() {
+  // Should I put an if statement in here so when the user clicks on the button it runs the timer?
   var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left until YOU LOSE!";
@@ -115,26 +116,42 @@ startQuiz.addEventListener("click", userStartQuiz);
 choiceA.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
+  if(answerId !== questions[questionBank].correct){
+    console.log("False, bitch.")
+    secondsLeft = secondsLeft - 30;
+  }
 cycleQuestions();
 })
 
 choiceB.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
+  if(answerId !== questions[questionBank].correct){
+    console.log("False, bitch.")
+    secondsLeft = secondsLeft - 30;
+  }
 cycleQuestions();
 })
 
 choiceC.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
+  if(answerId !== questions[questionBank].correct){
+    console.log("False, bitch.")
+    secondsLeft = secondsLeft - 30;
+  }
 cycleQuestions();
 })
 
 choiceD.addEventListener("click", function(event){
 var answerId = event.target.id;
 console.log(answerId);
+  if(answerId !== questions[questionBank].correct){
+    console.log("False, bitch.")
+    secondsLeft = secondsLeft - 30;
+  }
 cycleQuestions();
 })
 
-setTime();
+// setTime();
 showQuestion();
