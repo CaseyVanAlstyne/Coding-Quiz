@@ -15,6 +15,14 @@ var screenScore = document.querySelector("#screenScore");
 
 var questions = [
   {
+    questionStem: "What is Elliott's favorite color?",
+    choiceA: "A. Teal",
+    choiceB: "B. Jasper",
+    choiceC: "C. Purple",
+    choiceD: "D. What's a color?",
+    correct: "B"
+  },
+  {
     questionStem: "What does HTML stand for?",
     choiceA: "A. Hot Text Markup Language",
     choiceB: "B. Hyper Text Markup Language",
@@ -100,6 +108,7 @@ function setTime() {
     if(secondsLeft <= 0) {
       clearInterval(timerInterval);
     }
+
   }, 1000);
 }
 
