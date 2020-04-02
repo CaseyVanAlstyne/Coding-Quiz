@@ -10,6 +10,8 @@ var choiceD = document.getElementById("D");
 var secondsLeft = 75;
 var startQuiz = document.getElementById("startQuizButton");
 var quizScore = 0;
+var count = 0;
+var screenScore = document.querySelector("#screenScore");
 
 var questions = [
   {
@@ -62,7 +64,7 @@ function showQuestion(){
 function cycleQuestions(){
   questionBank++;
   if(questionBank > lastQuestionIndex){
-    alert("You've answered all of the questions, you smartie!");
+    alert("You've completed the quiz, you smartie!");
   } else {
   showQuestion();
   }
@@ -101,7 +103,8 @@ function setTime() {
   }, 1000);
 }
 
-function highScore() {
+function setCounterText() {
+  screenScore.textContent = count;
 }
  
 // create addEventListener for onclick to work with the cycleQuestions,, when user selects an answer choice
@@ -113,6 +116,13 @@ console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
     secondsLeft = secondsLeft - 15;
+    count--;
+    setCounterText();
+  } 
+  if(answerId === questions[questionBank].correct){
+    console.log("False, Dummy!")
+    count++;
+    setCounterText();
   } 
 cycleQuestions();
 })
@@ -123,7 +133,14 @@ console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
     secondsLeft = secondsLeft - 15;
-  }
+    count--;
+    setCounterText();
+  } 
+  if(answerId === questions[questionBank].correct){
+    console.log("False, Dummy!")
+    count++;
+    setCounterText();
+  } 
 cycleQuestions();
 })
 
@@ -133,7 +150,14 @@ console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
     secondsLeft = secondsLeft - 15;
-  }
+    count--;
+    setCounterText();
+  } 
+  if(answerId === questions[questionBank].correct){
+    console.log("False, Dummy!")
+    count++;
+    setCounterText();
+  } 
 cycleQuestions();
 })
 
@@ -143,6 +167,14 @@ console.log(answerId);
   if(answerId !== questions[questionBank].correct){
     console.log("False, Dummy!")
     secondsLeft = secondsLeft - 15;
-  }
+    count--;
+    setCounterText();
+  } 
+  if(answerId === questions[questionBank].correct){
+    console.log("False, Dummy!")
+    count++;
+    setCounterText();
+  } 
+
 cycleQuestions();
 })
