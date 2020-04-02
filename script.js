@@ -71,7 +71,7 @@ function cycleQuestions(){
 }
 
 function userStartQuiz(){
-  console.log("the quiz has started, Mfer.");
+  console.log("the quiz has started.");
   setTime();
   var x = document.getElementById("startQuizButton");
   if (x.style.display === "none") {
@@ -106,6 +106,7 @@ function setTime() {
 function setCounterText() {
   screenScore.textContent = count;
 }
+var count = localStorage.getItem("screenScore");
  
 // create addEventListener for onclick to work with the cycleQuestions,, when user selects an answer choice
 startQuiz.addEventListener("click", userStartQuiz);
@@ -124,6 +125,7 @@ console.log(answerId);
     count++;
     setCounterText();
   } 
+  localStorage.setItem("screenScore", count);
 cycleQuestions();
 })
 
@@ -141,6 +143,7 @@ console.log(answerId);
     count++;
     setCounterText();
   } 
+  localStorage.setItem("screenScore", count);
 cycleQuestions();
 })
 
@@ -158,6 +161,7 @@ console.log(answerId);
     count++;
     setCounterText();
   } 
+  localStorage.setItem("screenScore", count);
 cycleQuestions();
 })
 
@@ -175,6 +179,6 @@ console.log(answerId);
     count++;
     setCounterText();
   } 
-
+  localStorage.setItem("screenScore", count);
 cycleQuestions();
 })
