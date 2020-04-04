@@ -12,6 +12,10 @@ var startQuiz = document.getElementById("startQuizButton");
 var quizScore = 0;
 var count = 0;
 var screenScore = document.querySelector("#screenScore");
+var timerInterval;
+var initialInput = document.querySelector("#initial-text");
+var initialForm = document.querySelector("#initial-form");
+var initials = [];
 
 var questions = [
   {
@@ -73,10 +77,15 @@ function cycleQuestions(){
   questionBank++;
   if(questionBank > lastQuestionIndex){
     alert("You've completed the quiz, you smartie!");
+    clearInterval(timerInterval);
   } else {
   showQuestion();
   }
 }
+
+// User enters their initials and saves high score. 
+// function storeInitials() {
+//   localStorage.setItem("initials", JSON.stringify(initials));
 
 function userStartQuiz(){
   console.log("the quiz has started.");
@@ -99,9 +108,11 @@ function userStartQuiz(){
 //   viewHighScores(event);
 // }
 
+console.log(secondsLeft);
+
 function setTime() {
   // Should I put an if statement in here so when the user clicks on the button it runs the timer?
-  var timerInterval = setInterval(function() {
+  timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left until YOU LOSE!";
 
@@ -128,9 +139,8 @@ console.log(answerId);
     secondsLeft = secondsLeft - 15;
     count--;
     setCounterText();
-  } 
-  if(answerId === questions[questionBank].correct){
-    console.log("False, Dummy!")
+  } else {
+    console.log("Correct, Dummy!")
     count++;
     setCounterText();
   } 
@@ -146,9 +156,8 @@ console.log(answerId);
     secondsLeft = secondsLeft - 15;
     count--;
     setCounterText();
-  } 
-  if(answerId === questions[questionBank].correct){
-    console.log("False, Dummy!")
+  } else {
+    console.log("Correct, Dummy!")
     count++;
     setCounterText();
   } 
@@ -164,9 +173,8 @@ console.log(answerId);
     secondsLeft = secondsLeft - 15;
     count--;
     setCounterText();
-  } 
-  if(answerId === questions[questionBank].correct){
-    console.log("False, Dummy!")
+  } else {
+    console.log("Correct, Dummy!")
     count++;
     setCounterText();
   } 
@@ -182,9 +190,8 @@ console.log(answerId);
     secondsLeft = secondsLeft - 15;
     count--;
     setCounterText();
-  } 
-  if(answerId === questions[questionBank].correct){
-    console.log("False, Dummy!")
+  } else {
+    console.log("Correct, Dummy!")
     count++;
     setCounterText();
   } 
