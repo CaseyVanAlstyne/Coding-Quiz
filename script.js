@@ -108,8 +108,8 @@ function setTime() {
 
 function setCounterText() {
   screenScore.textContent = count;
-  var count = localStorage.getItem("screenScore");
 }
+var count = localStorage.getItem("screenScore");
 
 function renderHighScore(){
 
