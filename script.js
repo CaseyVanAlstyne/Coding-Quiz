@@ -13,17 +13,14 @@ var quizScore = 0;
 var count = 0;
 var screenScore = document.querySelector("#screenScore");
 var timerInterval;
-var initialInput = document.querySelector("#initial-text");
-var initialForm = document.querySelector("#initial-form");
-var initials = [];
 
 var questions = [
   {
-    questionStem: "What is Elliott's favorite color?",
-    choiceA: "A. Teal",
-    choiceB: "B. Jasper",
-    choiceC: "C. Purple",
-    choiceD: "D. What's a color?",
+    questionStem: "What are the three fundamental languages for programming?",
+    choiceA: "A. CSS, React, HTML",
+    choiceB: "B. CSS, JS, HTML",
+    choiceC: "C. JS, jQuery, HTML",
+    choiceD: "D. CSS, Bootstrap, HTML",
     correct: "B"
   },
   {
@@ -51,11 +48,11 @@ var questions = [
     correct: "D"
   },
   {
-    questionStem: "What is Olivia's favorite kind of animal?",
-    choiceA: "A. bug",
-    choiceB: "B. rat",
-    choiceC: "C. horse",
-    choiceD: "D. wolf",
+    questionStem: "What does a for loop look like?",
+    choiceA: "A. for[var i=0; i<5; i++]{}",
+    choiceB: "B. for[i=0, i<5, i++]{}",
+    choiceC: "C. for(var i=0, i<5, i++){}",
+    choiceD: "D. for(var i=0; i<5; i++){}",
     correct: "D"
   },
 ];
@@ -83,10 +80,6 @@ function cycleQuestions(){
   }
 }
 
-// User enters their initials and saves high score. 
-// function storeInitials() {
-//   localStorage.setItem("initials", JSON.stringify(initials));
-
 function userStartQuiz(){
   console.log("the quiz has started.");
   setTime();
@@ -98,16 +91,6 @@ function userStartQuiz(){
   }
   showQuestion();
 }
-
-// var scores = JSON.parse(window.localStorage.setItem('scores'));
-//   if (scores === null) {
-//     scores = [];
-//   } 
-//   scores.push(currentPlayerScore);
-//   localStorage.setItem("scores", JSON.stringify(scores));
-//   viewHighScores(event);
-// }
-
 console.log(secondsLeft);
 
 function setTime() {
@@ -125,8 +108,12 @@ function setTime() {
 
 function setCounterText() {
   screenScore.textContent = count;
+  var count = localStorage.getItem("screenScore");
 }
-var count = localStorage.getItem("screenScore");
+
+function renderHighScore(){
+
+}
  
 // create addEventListener for onclick to work with the cycleQuestions,, when user selects an answer choice
 startQuiz.addEventListener("click", userStartQuiz);
