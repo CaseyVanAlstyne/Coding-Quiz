@@ -1,187 +1,170 @@
-var timeEl = document.querySelector(".time");
-var mainEl = document.getElementById("main");
-var start = document.getElementById("start");
-var quiz = document.getElementById("quiz");
-var question = document.getElementById("question");
-var choiceA = document.getElementById("A");
-var choiceB = document.getElementById("B");
-var choiceC = document.getElementById("C");
-var choiceD = document.getElementById("D");
-var secondsLeft = 75;
-var startQuiz = document.getElementById("startQuizButton");
-var quizScore = 0;
-var count = 0;
-var screenScore = document.querySelector("#screenScore");
-var timerInterval;
+// variables to keep track of quiz state
+var currentQuestionIndex = 0;
+var time = questions.length * 15;
+var timerId;
 
-var questions = [
-  {
-    questionStem: "What are the three fundamental languages for programming?",
-    choiceA: "A. CSS, React, HTML",
-    choiceB: "B. CSS, JS, HTML",
-    choiceC: "C. JS, jQuery, HTML",
-    choiceD: "D. CSS, Bootstrap, HTML",
-    correct: "B"
-  },
-  {
-    questionStem: "What does HTML stand for?",
-    choiceA: "A. Hot Text Markup Language",
-    choiceB: "B. Hyper Text Markup Language",
-    choiceC: "C. High Text Markup Language",
-    choiceD: "D. Hidden Text Markup Language",
-    correct: "B"
-  },
-  {
-    questionStem: "What does CSS stand for?",
-    choiceA: "A. Cascading Style Sheet",
-    choiceB: "B. Cool Super Saiyan",
-    choiceC: "C. Casey's Super SMART",
-    choiceD: "D. Code Style Sheet",
-    correct: "A"
-},
-  {
-    questionStem: "What does JS stand for?",
-    choiceA: "A. Javasuper",
-    choiceB: "B. Javasingle",
-    choiceC: "C. Jabroni's suck",
-    choiceD: "D. Javascript",
-    correct: "D"
-  },
-  {
-    questionStem: "What does a for loop look like?",
-    choiceA: "A. for[var i=0; i<5; i++]{}",
-    choiceB: "B. for[i=0, i<5, i++]{}",
-    choiceC: "C. for(var i=0, i<5, i++){}",
-    choiceD: "D. for(var i=0; i<5; i++){}",
-    correct: "D"
-  },
-];
+// variables to reference DOM elements
+var questionsEl = document.getElementById("questions");
+var timerEl = document.getElementById("time");
+var choicesEl = document.getElementById("choices");
+var submitBtn = document.getElementById("submit");
+var startBtn = document.getElementById("start");
+var initialsEl = document.getElementById("initials");
+var feedbackEl = document.getElementById("feedback");
 
-var lastQuestionIndex = questions.length - 1;
-var questionBank = 0;
+// sound effects
+var sfxRight = new Audio("assets/sfx/correct.wav");
+var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
-function showQuestion(){
-  var q = questions[questionBank];
-  question.innerHTML = "<p>" + q.questionStem + "</p>";
-  choiceA.innerHTML = q.choiceA;
-  choiceB.innerHTML = q.choiceB;
-  choiceC.innerHTML = q.choiceC;
-  choiceD.innerHTML = q.choiceD;
-  console.log("The question is shown");
+function startQuiz() {
+  // hide start screen
+  var startScreenEl = document.getElementById("start-screen");
+  startScreenEl.setAttribute("class", "hide");
+
+  // un-hide questions section
+  questionsEl.removeAttribute("class");
+
+  // start timer
+  timerId = setInterval(clockTick, 1000);
+
+  // show starting time
+  timerEl.textContent = time;
+
+  getQuestion();
 }
 
-function cycleQuestions(){
-  questionBank++;
-  if(questionBank > lastQuestionIndex){
-    alert("You've completed the quiz, you smartie!");
-    clearInterval(timerInterval);
-  } else {
-  showQuestion();
-  }
+function getQuestion() {
+  // get current question object from array
+  var currentQuestion = questions[currentQuestionIndex];
+
+  // update title with current question
+  var titleEl = document.getElementById("question-title");
+  titleEl.textContent = currentQuestion.title;
+
+  // clear out any old question choices
+  choicesEl.innerHTML = "";
+
+  // loop over choices
+  currentQuestion.choices.forEach(function (choice, i) {
+    // create new button for each choice
+    var choiceNode = document.createElement("button");
+    choiceNode.setAttribute("class", "choice");
+    choiceNode.setAttribute("value", choice);
+
+    choiceNode.textContent = i + 1 + ". " + choice;
+
+    // attach click event listener to each choice
+    choiceNode.onclick = questionClick;
+
+    // display on the page
+    choicesEl.appendChild(choiceNode);
+  });
 }
 
-function userStartQuiz(){
-  console.log("the quiz has started.");
-  setTime();
-  var x = document.getElementById("startQuizButton");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-  showQuestion();
-}
-console.log(secondsLeft);
+function questionClick() {
+  // check if user guessed wrong
+  if (this.value !== questions[currentQuestionIndex].answer) {
+    // penalize time
+    time -= 15;
 
-function setTime() {
-  // Should I put an if statement in here so when the user clicks on the button it runs the timer?
-  timerInterval = setInterval(function() {
-    secondsLeft--;
-    timeEl.textContent = secondsLeft + " seconds left until YOU LOSE!";
-
-    if(secondsLeft <= 0) {
-      clearInterval(timerInterval);
+    if (time < 0) {
+      time = 0;
     }
 
+    // display new time on page
+    timerEl.textContent = time;
+
+    // play "wrong" sound effect
+    sfxWrong.play();
+
+    feedbackEl.textContent = "Wrong!";
+  } else {
+    // play "right" sound effect
+    sfxRight.play();
+
+    feedbackEl.textContent = "Correct!";
+  }
+
+  // flash right/wrong feedback on page for half a second
+  feedbackEl.setAttribute("class", "feedback");
+  setTimeout(function () {
+    feedbackEl.setAttribute("class", "feedback hide");
   }, 1000);
+
+  // move to next question
+  currentQuestionIndex++;
+
+  // check if we've run out of questions
+  if (currentQuestionIndex === questions.length) {
+    quizEnd();
+  } else {
+    getQuestion();
+  }
 }
 
-function setCounterText() {
-  screenScore.textContent = count;
+function quizEnd() {
+  // stop timer
+  clearInterval(timerId);
+
+  // show end screen
+  var endScreenEl = document.getElementById("end-screen");
+  endScreenEl.removeAttribute("class");
+
+  // show final score
+  var finalScoreEl = document.getElementById("final-score");
+  finalScoreEl.textContent = time;
+
+  // hide questions section
+  questionsEl.setAttribute("class", "hide");
 }
-var count = localStorage.getItem("screenScore");
 
-function renderHighScore(){
+function clockTick() {
+  // update time
+  time--;
+  timerEl.textContent = time;
 
+  // check if user ran out of time
+  if (time <= 0) {
+    quizEnd();
+  }
 }
- 
-// create addEventListener for onclick to work with the cycleQuestions,, when user selects an answer choice
-startQuiz.addEventListener("click", userStartQuiz);
 
-choiceA.addEventListener("click", function(event){
-var answerId = event.target.id;
-console.log(answerId);
-  if(answerId !== questions[questionBank].correct){
-    console.log("False, Dummy!")
-    secondsLeft = secondsLeft - 15;
-    count--;
-    setCounterText();
-  } else {
-    console.log("Correct, Dummy!")
-    count++;
-    setCounterText();
-  } 
-  localStorage.setItem("screenScore", count);
-cycleQuestions();
-})
+function saveHighscore() {
+  // get value of input box
+  var initials = initialsEl.value.trim();
 
-choiceB.addEventListener("click", function(event){
-var answerId = event.target.id;
-console.log(answerId);
-  if(answerId !== questions[questionBank].correct){
-    console.log("False, Dummy!")
-    secondsLeft = secondsLeft - 15;
-    count--;
-    setCounterText();
-  } else {
-    console.log("Correct, Dummy!")
-    count++;
-    setCounterText();
-  } 
-  localStorage.setItem("screenScore", count);
-cycleQuestions();
-})
+  // make sure value wasn't empty
+  if (initials !== "") {
+    // get saved scores from localstorage, or if not any, set to empty array
+    var highscores =
+      JSON.parse(window.localStorage.getItem("highscores")) || [];
 
-choiceC.addEventListener("click", function(event){
-var answerId = event.target.id;
-console.log(answerId);
-  if(answerId !== questions[questionBank].correct){
-    console.log("False, Dummy!")
-    secondsLeft = secondsLeft - 15;
-    count--;
-    setCounterText();
-  } else {
-    console.log("Correct, Dummy!")
-    count++;
-    setCounterText();
-  } 
-  localStorage.setItem("screenScore", count);
-cycleQuestions();
-})
+    // format new score object for current user
+    var newScore = {
+      score: time,
+      initials: initials,
+    };
 
-choiceD.addEventListener("click", function(event){
-var answerId = event.target.id;
-console.log(answerId);
-  if(answerId !== questions[questionBank].correct){
-    console.log("False, Dummy!")
-    secondsLeft = secondsLeft - 15;
-    count--;
-    setCounterText();
-  } else {
-    console.log("Correct, Dummy!")
-    count++;
-    setCounterText();
-  } 
-  localStorage.setItem("screenScore", count);
-cycleQuestions();
-})
+    // save to localstorage
+    highscores.push(newScore);
+    window.localStorage.setItem("highscores", JSON.stringify(highscores));
+
+    // redirect to next page
+    window.location.href = "highscores.html";
+  }
+}
+
+function checkForEnter(event) {
+  // "13" represents the enter key
+  if (event.key === "Enter") {
+    saveHighscore();
+  }
+}
+
+// user clicks button to submit initials
+submitBtn.onclick = saveHighscore;
+
+// user clicks button to start quiz
+startBtn.onclick = startQuiz;
+
+initialsEl.onkeyup = checkForEnter;
